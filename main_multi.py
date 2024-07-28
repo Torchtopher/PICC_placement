@@ -6,11 +6,12 @@ import time
 CHEMO_DAYS = [(2,3), (11, 18), (32, 39), (60, 67)]
 
 # how much I don't like the things we are modeling
-ER_NO_PICC_COST = 1000 # if go to ER without 
-PICC_PLACEMENT_COST = 100
-INFECTION_COST = PICC_PLACEMENT_COST * 100
-
 PICC_BASELINE_COST = 1 # annoyance of just having picc in
+PICC_PLACEMENT_COST = 100
+
+ER_NO_PICC_COST = 1000 # if go to ER without picc
+INFECTION_COST = PICC_PLACEMENT_COST * 100 
+
 
 INFECTION_CHANCE = 4 / 1000 # per 1000 catheter days
 ER_CHANCE = 1.0 # 0-1 chance of going to ER 7 days after chemo  
@@ -113,9 +114,12 @@ def run_sim(inp_sol):
     return (inp_sol, total_cost/SIMS_TO_RUN, total_infections)
 
 
-def find_optimal_solution(infection_cost = PICC_PLACEMENT_COST * 100):
-    global INFECTION_COST 
+def find_optimal_solution(infection_cost, placement_cost, er_no_picc_cost, infection_chance_per_1000):
+    global INFECTION_COST, PICC_PLACEMENT_COST, ER_NO_PICC_COST, INFECTION_CHANCE
     INFECTION_COST = infection_cost
+    INFECTION_CHANCE = infection_chance_per_1000 / 1000
+    PICC_PLACEMENT_COST = placement_cost
+    ER_NO_PICC_COST = er_no_picc_cost
     solutions = generate_all_picc(CHEMO_DAYS)
 
     s = time.perf_counter()
