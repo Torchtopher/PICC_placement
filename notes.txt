@@ -1,0 +1,33 @@
+assume port is not viable
+
+problem:
+want to know when it is best to replace picc line to keep infection risk lowest while also accouting for other factors
+
+to minimize factors:
+  cost * did get infection         day * risk of infection (X infections per 1000 catheter days) cumaltive??
+  cost * days with picc
+  cost * times picc inserted
+  cost * went to ER without access
+
+impl:
+
+    generate all fesible solution 
+    sim 10000 times through next 100 days
+    record score
+    next 
+
+generate all fesible solution: -> how many is this?
+   huerstics:
+      - max 5 picc lines
+      - must take out line directly after chemo OR directly after when ER visit would occur (7 days after chemo) 
+      - must place line directly before chemo     
+
+    1 solution: list of days when picc is taken out and put back in
+    1 chemo session: 
+
+4 chemo left + up to 4 ER 
+
+next aviable take out is after chemo 1 
+
+sequential: Total time 46.89433309600008
+parallel Total time 6.058906507999382
